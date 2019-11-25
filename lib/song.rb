@@ -1,4 +1,3 @@
-require 'pry'
 class Song
   attr_accessor :name, :artist_name
   @@all = []
@@ -11,144 +10,184 @@ class Song
     self.class.all << self
   end
   
-  def self.create 
-    song = self.new 
-    @@all << song 
-    # song.save
-    song 
-  end   
-  
-  def self.new_by_name(name)
-    song = self.new 
-    song.name = name 
-    song
-  end 
-  
-  def self.create_by_name(name) 
-    song = self.new 
-    song.name = name 
-    song.save
-    song 
-  end   
-  
-  def self.find_by_name(name)
-   self.all.detect{|song| song.name == name}  
-  end   
-  
-  def self.find_or_create_by_name(name)
-     self.find_by_name(name) || self.create_by_name(name)
-  end 
-  
-  def self.alphabetical
-    self.all.sort_by{|song| song.name}
-  end   
-  
-  def self.new_from_filename(filename)
-    split_filename = filename.chop.chop.chop.chop.split(" - ")
-    song = Song.new 
-    song.name = split_filename[1]
-    song.artist_name = split_filename[0]
-    song
-  end   
-  
-  def self.create_from_filename(filename)
-    split_filename = filename.chop.chop.chop.chop.split(" - ")
-    song = Song.new 
-    song.name = split_filename[1]
-    song.artist_name = split_filename[0]
-    song.save
-  end 
-  
-  def self.destroy_all
-    @@all = []
-  end   
-end   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+ def self.create
+   song = self.new 
+   song.save 
+   song 
+ end  
+ 
+ def self.new_by_name(name)
+   song = self.new 
+   song.name = name 
+   song 
+ end  
+ 
+ def self.create_by_name(name)
+   song = self.new 
+   song.name = name 
+   song.save 
+   song 
+ end  
+ 
+ def self.find_by_name(name)
+   @@all.detect{|song|song.name == name}
+ end  
+ 
+ def self.find_or_create_by_name(name)
+   self.find_by_name(name) || self.create_by_name(name)
+ end
+ 
+ def self.alphabetical
+   @@all.sort_by{|song|song.name}
+ end    
+ 
+ def self.new_from_filename(filename)
+   song = self.new 
+   split_filename = filename.split(/[.-]/).map{|song| song.strip}
+   song.name = split_filename[1]
+   song.artist_name = split_filename[0]
+   song 
+ end  
+ 
+ def self.create_from_filename(filename)
+   song = self.new 
+   split_filename = filename.split(/[.-]/).map{|song| song.strip}
+   song.name = split_filename[1]
+   song.artist_name = split_filename[0]
+   song.save
+   song 
+ end   
+ 
+ def self.destroy_all
+   @@all = []
+ end  
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#   split_filename = filename.chop.chop.chop.chop.split(" - ")
+# #     song = Song.new 
+# #     song.name = split_filename[1]
+# #     song.artist_name = split_filename[0]
+# #     song
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# require 'pry'
+# class Song
+#   attr_accessor :name, :artist_name
+#   @@all = []
+ 
+#   def self.all
+#     @@all
+#   end
+ 
+#   def save
+#     self.class.all << self
+#   end
   
 #   def self.create 
 #     song = self.new 
-#     song.save 
+#     @@all << song 
+#     # song.save
 #     song 
 #   end   
   
 #   def self.new_by_name(name)
 #     song = self.new 
-#     song.name = name
-#     song 
-#   end   
+#     song.name = name 
+#     song
+#   end 
   
-#   def self.create_by_name(name)
+#   def self.create_by_name(name) 
 #     song = self.new 
 #     song.name = name 
-#     song.save 
+#     song.save
 #     song 
 #   end   
   
 #   def self.find_by_name(name)
-#     self.all.detect{|song| song.name == name} 
+#   self.all.detect{|song| song.name == name}  
+#   end   
+  
+#   def self.find_or_create_by_name(name)
+#     self.find_by_name(name) || self.create_by_name(name)
 #   end 
   
-#   def self.find_or_create_by_name(song)
-#   self.find_by_name(song) || self.create_by_name(song) 
+#   def self.alphabetical
+#     self.all.sort_by{|song| song.name}
 #   end   
   
-#   def self.alphabetical
-#     # @@all.sort { |a, b| b.name <=> a.name } 
-#     @@all.sort_by {|song| song.name}
-#   end   
-
 #   def self.new_from_filename(filename)
 #     split_filename = filename.chop.chop.chop.chop.split(" - ")
-#     song = Song.new
+#     song = Song.new 
 #     song.name = split_filename[1]
 #     song.artist_name = split_filename[0]
 #     song
 #   end   
   
-#   def self.create_from_filename(filename) 
+#   def self.create_from_filename(filename)
 #     split_filename = filename.chop.chop.chop.chop.split(" - ")
-#     song = Song.new
+#     song = Song.new 
 #     song.name = split_filename[1]
 #     song.artist_name = split_filename[0]
 #     song.save
-#   end   
+#   end 
   
 #   def self.destroy_all
-#     self.all.clear 
+#     @@all = []
 #   end   
 # end   
-
-  
-  
-#   # binding.pry
-#   # p 'eof'
-  
-  
-  
-#   # def self.new_from_filename(filename)
-#   #   parsed_filename = filename.split(/[-.]/)
-#   #   parsed_filename.pop()
-#   #   parsed_filename = parsed_filename.map {|text| text.strip()}
-#   #   song = self.new 
-#   #   song.name = parsed_filename[1]
-#   #   song.artist_name = parsed_filename[0]
-#   #   song
-#   # end   
   
   
   
@@ -156,38 +195,48 @@ end
   
   
   
- 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 # #   def self.create 
 # #     song = self.new 
 # #     song.save 
 # #     song 
 # #   end   
   
-# #   def self.new_by_name(name) 
+# #   def self.new_by_name(name)
+# #     song = self.new 
+# #     song.name = name
+# #     song 
+# #   end   
+  
+# #   def self.create_by_name(name)
 # #     song = self.new 
 # #     song.name = name 
-# #     song
-# #   end 
-  
-# #   def self.create_by_name(song_name)
-# #     song = self.create  
-# #     song.name = song_name 
-# #     song
+# #     song.save 
+# #     song 
 # #   end   
   
 # #   def self.find_by_name(name)
-# #     self.all.detect{|song| song.name == name}
-# #   end  
+# #     self.all.detect{|song| song.name == name} 
+# #   end 
   
-# #   def self.find_or_create_by_name(name)
-# #     self.find_by_name(name) || self.create_by_name(name)
+# #   def self.find_or_create_by_name(song)
+# #   self.find_by_name(song) || self.create_by_name(song) 
 # #   end   
   
 # #   def self.alphabetical
-# #     # @@all.sort { |a,b| b.name <=> a.name }
-# #     @@all.sort_by { |song| song.name }
+# #     # @@all.sort { |a, b| b.name <=> a.name } 
+# #     @@all.sort_by {|song| song.name}
 # #   end   
-  
+
 # #   def self.new_from_filename(filename)
 # #     split_filename = filename.chop.chop.chop.chop.split(" - ")
 # #     song = Song.new
@@ -205,6 +254,82 @@ end
 # #   end   
   
 # #   def self.destroy_all
-# #     self.all.clear
+# #     self.all.clear 
 # #   end   
-# # end
+# # end   
+
+  
+  
+# #   # binding.pry
+# #   # p 'eof'
+  
+  
+  
+# #   # def self.new_from_filename(filename)
+# #   #   parsed_filename = filename.split(/[-.]/)
+# #   #   parsed_filename.pop()
+# #   #   parsed_filename = parsed_filename.map {|text| text.strip()}
+# #   #   song = self.new 
+# #   #   song.name = parsed_filename[1]
+# #   #   song.artist_name = parsed_filename[0]
+# #   #   song
+# #   # end   
+  
+  
+  
+  
+  
+  
+  
+ 
+# # #   def self.create 
+# # #     song = self.new 
+# # #     song.save 
+# # #     song 
+# # #   end   
+  
+# # #   def self.new_by_name(name) 
+# # #     song = self.new 
+# # #     song.name = name 
+# # #     song
+# # #   end 
+  
+# # #   def self.create_by_name(song_name)
+# # #     song = self.create  
+# # #     song.name = song_name 
+# # #     song
+# # #   end   
+  
+# # #   def self.find_by_name(name)
+# # #     self.all.detect{|song| song.name == name}
+# # #   end  
+  
+# # #   def self.find_or_create_by_name(name)
+# # #     self.find_by_name(name) || self.create_by_name(name)
+# # #   end   
+  
+# # #   def self.alphabetical
+# # #     # @@all.sort { |a,b| b.name <=> a.name }
+# # #     @@all.sort_by { |song| song.name }
+# # #   end   
+  
+# # #   def self.new_from_filename(filename)
+# # #     split_filename = filename.chop.chop.chop.chop.split(" - ")
+# # #     song = Song.new
+# # #     song.name = split_filename[1]
+# # #     song.artist_name = split_filename[0]
+# # #     song
+# # #   end   
+  
+# # #   def self.create_from_filename(filename) 
+# # #     split_filename = filename.chop.chop.chop.chop.split(" - ")
+# # #     song = Song.new
+# # #     song.name = split_filename[1]
+# # #     song.artist_name = split_filename[0]
+# # #     song.save
+# # #   end   
+  
+# # #   def self.destroy_all
+# # #     self.all.clear
+# # #   end   
+# # # end
